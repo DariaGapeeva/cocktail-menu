@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import { Switch, Route } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setCategoriesThunk } from "./redux/CategoryReduser";
+import Main from "./components/Main";
+import Cocktail from "./components/Cocktail";
 
-function App() {
+const App = () => {
+  const categories = useSelector((state) => state.category.categories);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setCategoriesThunk());
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Switch>
+      {categories.map((item) => (
+        <Route
+          key={item.id}
+          path={`/${item.value}`}
+          exact
+          render={() => <Main value={item.value} label={item.label} />}
+        />
+      ))}
+      <Route path={`/:idDrink`} render={() => <Cocktail />} />
+
+      <Route path={`/`} exact component={Main} />
+    </Switch>
   );
-}
+};
 
 export default App;
