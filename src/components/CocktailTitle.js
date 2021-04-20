@@ -57,7 +57,7 @@ const Glass = styled.div`
   margin-left: 35px;
 `;
 
-const CocktailTitle = ({ title, address, picture }) => {
+const CocktailTitle = ({ title, address, picture, alcohol, glass }) => {
   return (
     <Container>
       <ImageBox>
@@ -69,8 +69,8 @@ const CocktailTitle = ({ title, address, picture }) => {
       <Column>
         <Title to={`/${address}`}>{title}</Title>
         <Row>
-          <Alcohol>Alcohol</Alcohol>
-          <Glass>Glass</Glass>
+          <Alcohol>{alcohol}</Alcohol>
+          <Glass>{glass}</Glass>
         </Row>
       </Column>
     </Container>
